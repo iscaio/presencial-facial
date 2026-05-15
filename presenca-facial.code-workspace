@@ -1,0 +1,17 @@
+{
+  "folders": [
+    { "name": "api", "path": "./api" },
+    { "name": "front", "path": "./front" },
+    { "name": "facial-service", "path": "./facial-service" },
+  ],
+  "settings": {
+    "java.import.exclusions": ["**/front/**", "**/facial-service/**"],
+    "python.defaultInterpreterPath": "${workspaceFolder:facial-service}/.venv/bin/python",
+    "eslint.workingDirectories": [{ "directory": "./front" }],
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/node_modules": true,
+      "**/target": true,
+    },
+  },
+}
