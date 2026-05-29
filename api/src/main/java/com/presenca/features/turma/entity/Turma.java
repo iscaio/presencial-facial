@@ -1,6 +1,7 @@
 package com.presenca.features.turma.entity;
 
 import com.presenca.features.aluno.entity.Aluno;
+import com.presenca.features.professor.entity.Professor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -45,6 +46,10 @@ public class Turma {
 
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Aluno> alunos;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professor_id", nullable = false)
+    private Professor professor;
 
     @Column(nullable = false)
     private LocalDate createdAt;

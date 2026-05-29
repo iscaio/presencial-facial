@@ -1,10 +1,13 @@
 package com.presenca.features.turma.service;
 
+import com.presenca.features.professor.entity.Professor;
+import com.presenca.features.professor.repository.ProfessorRepository;
 import com.presenca.features.turma.dto.TurmaRequestDTO;
 import com.presenca.features.turma.dto.TurmaResponseDTO;
 import com.presenca.features.turma.entity.Turma;
 import com.presenca.features.turma.mapper.TurmaMapper;
 import com.presenca.features.turma.repository.TurmaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,8 @@ public class TurmaServiceImp implements TurmaService {
 
     @Autowired
     private TurmaRepository turmaRepository;
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     @Override
     public List<TurmaResponseDTO> findAll() {
@@ -54,9 +59,12 @@ public class TurmaServiceImp implements TurmaService {
         if (turmaRepository.existsByCodigo(dto.codigo())) {
             throw new IllegalArgumentException("Já existe uma turma com esse código: " + dto.codigo());
         }
-        Turma turma = TurmaMapper.toEntity(dto);
-        Turma turmaSalva = turmaRepository.save(turma);
-        return TurmaMapper.toDTO(turmaSalva);
+
+        Professor professor = professorRepository.findById(dto.professorId())
+                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado com o ID: " + dto.professorId()));
+
+        Turma turma = TurmaMapper.toEntity(dto, professor);  // passa o professor
+        return TurmaMapper.toDTO(turmaRepository.save(turma));
     }
 
     @Override

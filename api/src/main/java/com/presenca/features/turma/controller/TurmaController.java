@@ -22,20 +22,21 @@ public class TurmaController {
     //GET
     @GetMapping
     public ResponseEntity<List<TurmaResponseDTO>> findAll(){
+
         return ResponseEntity.ok(turmaService.findAll());
-    };
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<TurmaResponseDTO> findById(@PathVariable  UUID id){
         return ResponseEntity.ok(turmaService.findById(id));
-    };
+    }
 
-    @GetMapping("/{nome}")
+    @GetMapping("/nome/{nome}")
     public ResponseEntity<TurmaResponseDTO> findByNome(@PathVariable  String nome){
         return ResponseEntity.ok(turmaService.findByNome(nome));
-    };
+    }
 
-    @GetMapping("/{codigo}")
+    @GetMapping("/codigo/{codigo}")
     public ResponseEntity<TurmaResponseDTO> findByCodigo(@PathVariable String codigo){
         return ResponseEntity.ok(turmaService.findByCodigo(codigo));
     }

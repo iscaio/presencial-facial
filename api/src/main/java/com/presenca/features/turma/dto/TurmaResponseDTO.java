@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.UUID;
 
 public record TurmaResponseDTO(
-   UUID id,
-   String nome,
-   String codigo,
-   String descricao,
-   Integer cargaHoraria,
-   boolean ativa,
-   List<AlunoResponseDTO> alunos,
-   LocalDate createdAt
+        UUID id,
+        String nome,
+        String codigo,
+        String descricao,
+        Integer cargaHoraria,
+        boolean ativa,
+        UUID professorId,       // evita referência circular
+        String professorNome,
+        List<AlunoResponseDTO> alunos,
+        LocalDate createdAt
 ) {}
